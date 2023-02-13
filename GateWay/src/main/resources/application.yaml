@@ -1,0 +1,19 @@
+grpc:
+  client:
+    user-service:
+      address: static://localhost:6565
+      negotiationType: plainText
+    credit-service:
+      address: static://localhost:6566
+      negotiationType: plainText
+    debit-service:
+      address: static://localhost:6567
+      negotiationType: plainText
+server:
+  port: 8088
+
+spring:
+  datasource:
+    url: jdbc:db2://mydb2host:50000/testdb
+    username: db2inst1
+    password: password

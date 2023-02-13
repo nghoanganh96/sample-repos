@@ -1,0 +1,75 @@
+server:
+  port: 8081
+
+spring:
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+  jta:
+    atomikos:
+      datasource:
+        db2-card:
+          unique-resource-name: db2card
+          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
+          hbm2ddl-auto:
+          xa-properties:
+            serverName: localhost
+            portNumber: 50000
+            databaseName: testdb
+            user: db2inst1
+            password: cGFzc3dvcmQ=
+            driverType: 4
+#          initQuery: set current sqlid = 'LVM'
+#          testOnBorrow: true
+#          validationQuery: select 1 from sysibm.sysdummy1
+#          defaultAutoCommit: false
+          max-pool-size: 1
+          min-pool-size: 1
+          reap-timeout: 10
+        mysql-user:
+          unique-resource-name: mysqluser
+          xa-data-source-class-name: com.mysql.cj.jdbc.MysqlXADataSource
+          hbm2ddl-auto:
+          xa-properties:
+            serverName: localhost
+            portNumber: 3306
+            databaseName: user
+            user: root
+            password: cm9vdA==
+#          initQuery: set current sqlid = 'XXX'
+#          testOnBorrow: true
+#          validationQuery: select 1 from sysibm.sysdummy1
+#          defaultAutoCommit: false
+          max-pool-size: 1
+          min-pool-size: 1
+          reap-timeout: 10
+
+# to keep the JVM running
+camel:
+  springboot:
+    main-run-controller: true
+    routes-include-pattern: routes/routes.xml
+  threadpool:
+    pool-size: 10
+    max-queue-size: 1000
+  component:
+    properties:
+      location: routes/camel.properties
+
+
+activemq-jds:
+  name: activemq-demo
+  host: tcp://localhost:61616
+  session-cache-size: 500
+
+
